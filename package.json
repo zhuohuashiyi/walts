@@ -1,0 +1,245 @@
+{
+  "name": "walts",
+  "displayName": "A highly available, feature-rich and powerful AI programming assistant that supports many large models",
+  "description": "Walts(pronounced Waltz, which is an acronym for our four developers and means we wish all developers who use this plugin programming with the grace of a waltz) is a highly available (front-end/back-end separation, back-end deployment on the server, Provides a stable service), supports a variety of large models (openai family, zhipuai's Chatglm, Spark cognitive large model, etc.), and provides a powerful AI programming assistant with rich features (such as code interpretation, code optimization, code inspection, etc.).",
+  "version": "0.0.1",
+  "icon": "resources/extensionIcon.png",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.73.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "chatgpt",
+    "openai",
+    "gpt3",
+    "chatglm",
+    "ai",
+    "explain",
+    "find bugs",
+    "explain ",
+    "refactor"
+  ],
+  "activationEvents": [
+    "onView:walts.chatView",
+    "onCommand:walts.ask",
+    "onCommand:walts.explain",
+    "onCommand:walts.refactor",
+    "onCommand:walts.optimize",
+    "onCommand:walts.findProblems",
+    "onCommand:walts.documentation"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "walts.ask",
+        "title": "Ask walts"
+      },
+      {
+        "command": "walts.explain",
+        "title": "walts: Explain selection"
+      },
+      {
+        "command": "walts.refactor",
+        "title": "walts: Refactor selection"
+      },
+      {
+        "command": "walts.findProblems",
+        "title": "walts: Find problems"
+      },
+      {
+        "command": "walts.optimize",
+        "title": "walts: Optimize selection"
+      },
+      {
+        "command": "walts.documentation",
+        "title": "walts: Write documentation"
+      },
+      {
+        "command": "walts.resetSession",
+        "title": "Reset OpenAI API session"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "walts.ask",
+          "when": "editorTextFocus",
+          "group": "walts-menu-group@1"
+        },
+        {
+          "command": "walts.explain",
+          "when": "editorHasSelection",
+          "group": "walts-menu-group@2"
+        },
+        {
+          "command": "walts.refactor",
+          "when": "editorHasSelection",
+          "group": "walts-menu-group@3"
+        },
+        {
+          "command": "walts.findProblems",
+          "when": "editorHasSelection",
+          "group": "walts-menu-group@4"
+        },
+        {
+          "command": "walts.optimize",
+          "when": "editorHasSelection",
+          "group": "walts-menu-group@5"
+        },
+        {
+          "command": "walts.documentation",
+          "when": "editorHasSelection",
+          "group": "walts-menu-group@6"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "walts.ask"
+        },
+        {
+          "command": "walts.explain",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "walts.refactor",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "walts.findProblems",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "walts.optimize",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "walts.documentation",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "walts.resetSession"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "walts",
+          "title": "walts",
+          "icon": "resources/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "walts": [
+        {
+          "type": "webview",
+          "id": "walts.chatView",
+          "name": "walts"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "walts",
+      "type": "object",
+      "properties": {
+        "walts.vendor": {
+            "type": "string",
+            "default": "openai",
+            "description": "you should choose the vendor and the chose model should match the vendor, or it will fail",
+            "order": 0
+        },
+        "walts.apiKey": {
+          "type": "string",
+          "markdownDescription": "apiKey, you can let it empty, and we will use the free apiKey",
+          "order": 1
+        },
+        "walts.model": {
+          "type": "string",
+          "enum": [
+            "ChatGPT",
+            "text-davinci-003",
+            "text-curie-001",
+            "code-davinci-002",
+            "code-cushman-002",
+            "chatglm_turbo"
+          ],
+          "default": "text-davinci-003",
+          "description": "which model to use",
+          "order": 2
+        },
+        "walts.maxTokens": {
+          "type": "number",
+          "default": 1024,
+          "description": "Maximum number of tokens inside response per request",
+          "order": 3
+        },
+        "walts.temperature": {
+          "type": "number",
+          "default": 0.5,
+          "description": "temperature to use for the GPT3 (between 0 (conservative) and 1 (creative))",
+          "order": 4
+        },
+        "walts.pasteOnClick": {
+          "type": "boolean",
+          "default": true,
+          "description": "Paste the code from a codeblock inside the response into the editor when you click on it",
+          "order": 5
+        },
+        "walts.enableTranslate": {
+            "type": "boolean",
+            "default": false,
+            "description": "sometimes ask question in english will get better answer, so this setting is for people poor in english",
+            "order": 6
+        },
+        "walts.topP": {
+            "type": "number",
+            "default": 0.5,
+            "description": "Uses top-p (nucleus) sampling to control the probability distribution of generated text. Smaller values (e.g., 0.2) restrict the probability distribution range, resulting in more focused and consistent text generation",
+            "order": 7
+        },
+        "walts.backEndAddress": {
+            "type": "string",
+            "default": "http://127.0.0.1:10024/api/search",
+            "description": "you can build your own backEnd using our program prompt.py",
+            "order": 8
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "update-package-lock": "npm install --package-lock-only"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.73.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.9.3",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "axios": "^0.21.4"
+  }
+}
