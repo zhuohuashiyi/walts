@@ -4,9 +4,9 @@ import openai
 import zhipuai
 import SparkApi
 from flask import Flask, request
-from websocket import create_connection
+import requests
 
-from util import translate
+from util import translate, getAccessToken
 
 
 app = Flask(__name__)
@@ -18,8 +18,10 @@ chinesePromptConfig = config.get('chinesePrompt')
 apiKeyConfig = config.get('apiKey')
 sparkAIConfig = config.get('sparkAI')
 youdaoConfig = config.get('youdao')
+baiduConfig = config.get('baidu')
 openai.api_key = apiKeyConfig['openai']
 zhipuai.api_key = apiKeyConfig['zhipuai']
+baiduAccessToken = getAccessToken(baiduConfig['accessTokenUrl'], baiduConfig['apiKey'], baiduConfig['secretKey'])
 
 
 @app.route('/api/search', methods=['POST'])
@@ -44,6 +46,10 @@ def search():
         return searchZhiPuAI(model, api_key, prompt_type, prompt, code, max_tokens, temperature, top_p)
     elif vendor == 'sparkai':
         return searchSparkAI(prompt_type, prompt, code)
+    elif vendor == 'baidu':
+        return searchBaiduAI(model, prompt_type, prompt, code, temperature, top_p)
+    elif vendor == 'google':
+        return searchGoogle(prompt_type, prompt, code)
     
     
 def searchOpenAI(model, api_key, prompt_type, prompt, code, max_tokens, temperature, enable_translate, top_p):
@@ -85,7 +91,40 @@ def searchSparkAI(prompt_type, prompt, code):
     prompt = buildPrompt(prompt_type, prompt, code, False)
     SparkApi.main(sparkAIConfig['appid'], sparkAIConfig['api_key'], sparkAIConfig['app_secret'], sparkAIConfig['url'], sparkAIConfig['domain'], [{"role": "user", "content": prompt}])
     return SparkApi.answer
-    
+
+
+def searchBaiduAI(model, prompt_type, prompt, code, temperature, top_p):
+    prompt = buildPrompt(prompt_type, prompt, code, False)    
+    payload = json.dumps({
+        "messages": [
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        "temperature": temperature,
+        "top_p": top_p
+    })
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", baiduConfig['url'].format(model, baiduAccessToken), headers=headers, data=payload)
+    res = json.loads(response.text)
+    return res['result']
+
+
+
+def searchGoogle(prompt_type, prompt, code):
+    prompt = buildPrompt(prompt_type, prompt, code, True)
+    data = {"contents": [{"parts": [{"text": prompt }]}]}
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = requests.request('POST', config['googleUrl'].format(apiKeyConfig['google']), headers=headers, data=json.dumps(data))
+    res = json.loads(response.content.decode('utf-8'))
+    print(res)
+    return res['candidates'][0]['content']['parts'][0]['text']
+        
 
 def buildPrompt(prompt_type, prompt, code, english):
     if english:
@@ -100,7 +139,7 @@ def buildPrompt(prompt_type, prompt, code, english):
         elif prompt_type == 'code documentation':
             prompt = promptConfig['codeDocumentationPrompt']
         if code:
-            prompt = f"${prompt}\n\`\`\`\n${code}\n\`\`\`"
+            prompt = f"{prompt}\n\`\`\`\n{code}\n\`\`\`"
         prompt = promptConfig['promptTemplate'].format(prompt)
     else:
         if prompt_type == 'code explain':
@@ -114,11 +153,10 @@ def buildPrompt(prompt_type, prompt, code, english):
         elif prompt_type == 'code documentation':
             prompt = chinesePromptConfig['codeDocumentationPrompt']
         if code:
-            prompt = f"${prompt}\n\`\`\`\n${code}\n\`\`\`"
+            prompt = f"{prompt}\n\`\`\`\n{code}\n\`\`\`"
         prompt = chinesePromptConfig['promptTemplate'].format(prompt)
     return prompt
     
 
 if __name__ == '__main__':
     app.run(host=appConfig['host'], port=appConfig['port'])
-    #app.run(host='10.119.6.207', port=1024)

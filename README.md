@@ -50,3 +50,4 @@ Walts(读音同Waltz, 这既是我们四个开发者名字首字母的缩写，�
 
 ### 团队分工
 
+curl 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=GN7ND3YxBA6a3u0kqYCzlr3s&client_secret=xSbvPjHY5Aa7kUPNDyBtjYLcdyHlojoZ'

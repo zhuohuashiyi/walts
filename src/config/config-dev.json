@@ -5,8 +5,10 @@
     },
     "apiKey": {
         "openai": "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",
-        "zhipuai": "45b57527dbc6bc4164931e6c180c82a3.Mq5HxGkhiGbhFLoB"
+        "zhipuai": "45b57527dbc6bc4164931e6c180c82a3.Mq5HxGkhiGbhFLoB",
+        "google": "AIzaSyBdHCekBwLzWixqtRNjsnuBfmwrzfm-mzo"
     },
+    "googleUrl": "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={}",
     "prompt": {
         "promptTemplate": "You are ASSISTANT helping the USER with coding.\nYou are intelligent, helpful and an expert developer, who always gives the correct answer and only does what instructed. You always answer truthfully and don't make things up.\n        (When responding to the following prompt, please make sure to properly style your response using Github Flavored Markdown.\n Use markdown syntax for things like headings, lists, colored text, code blocks, highlights etc. Make sure not to mention markdown or stying in your actual response.\n Try to write code inside a single code block if possible)\n\nUSER: {}\n\nASSISTANT: ",
         "codeExplainPrompt": "Explain what this code does: ",
@@ -34,5 +36,11 @@
         "appid": "2c35f8f88f85ee4c",
         "app_secret": "0FniYwQvIcgB7Zihe7SOwYxKHLkAPUIY",
         "url": "https://openapi.youdao.com/api"
+    },
+    "baidu": {
+        "accessTokenUrl": "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}",
+        "apiKey": "GN7ND3YxBA6a3u0kqYCzlr3s",
+        "secretKey": "xSbvPjHY5Aa7kUPNDyBtjYLcdyHlojoZ",
+        "url": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/{}?access_token={}"
     }
 }

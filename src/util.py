@@ -40,16 +40,26 @@ def translate(text: str, youdaoConfig: dict) -> str:
     data['q'] = text
     data['salt'] = salt
     data['sign'] = sign
-    #data['domain'] = 'computers'
     response = do_request(data, url)
     res = response.content.decode('utf-8')
     res = json.loads(res)
     return res['translation'][0]
 
 
+
+def getAccessToken(url, appKey, secretKey):
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+    response = requests.request("POST", url.format(appKey, secretKey), headers=headers)
+    return response.json().get("access_token")
+
+
 if __name__ == '__main__':
-    print(translate('你好', {
-        "appid": "2c35f8f88f85ee4c",
-        "app_secret": "0FniYwQvIcgB7Zihe7SOwYxKHLkAPUIY",
-        "url": "https://openapi.youdao.com/api"
-    }))
+    # print(translate('你好', {
+    #     "appid": "2c35f8f88f85ee4c",
+    #     "app_secret": "0FniYwQvIcgB7Zihe7SOwYxKHLkAPUIY",
+    #     "url": "https://openapi.youdao.com/api"
+    # }))
+    print(getAccessToken("https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}", "GN7ND3YxBA6a3u0kqYCzlr3s", "xSbvPjHY5Aa7kUPNDyBtjYLcdyHlojoZ"))

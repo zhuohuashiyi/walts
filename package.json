@@ -149,6 +149,13 @@
       "properties": {
         "walts.vendor": {
             "type": "string",
+            "enum": [
+                "openai",
+                "zhipuai",
+                "sparkai",
+                "baidu",
+                "google"
+            ],
             "default": "openai",
             "description": "you should choose the vendor and the chose model should match the vendor, or it will fail",
             "order": 0
@@ -166,7 +173,12 @@
             "text-curie-001",
             "code-davinci-002",
             "code-cushman-002",
-            "chatglm_turbo"
+            "chatglm_turbo",
+            "completions_pro",
+            "bloomz_7b1",
+            "qianfan_bloomz_7b_compressed",
+            "llama_2_70b",
+            "gemini_pro"
           ],
           "default": "text-davinci-003",
           "description": "which model to use",
@@ -204,7 +216,7 @@
         },
         "walts.backEndAddress": {
             "type": "string",
-            "default": "http://127.0.0.1:10024/api/search",
+            "default": "http://10.119.6.206:10024/api/search",
             "description": "you can build your own backEnd using our program prompt.py",
             "order": 8
         }

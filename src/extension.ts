@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 type KeyInfo = {apiKey?: string};
-export type Settings = {pasteOnClick?: boolean, model?: string, maxTokens?: number, temperature?: number, enableTranslate?: boolean, vendor?: string, topP?: number};
+export type Settings = {pasteOnClick?: boolean, model?: string, maxTokens?: number, temperature?: number, enableTranslate?: boolean, vendor?: string, topP?: number, backEndAddress?: string};
 
 export function activate(context: vscode.ExtensionContext) {
 	
@@ -16,8 +16,6 @@ export function activate(context: vscode.ExtensionContext) {
 	provider.setAPIKey({
 		apiKey: config.get('apiKey')
 	});
-
-    provider.setBackEndAddr(config.get('backEndAddress') || 'http://127.0.0.1:10024/api/search')
 
 	provider.setSettings({
 		pasteOnClick: config.get('pasteOnClick') || false,
@@ -60,7 +58,6 @@ export function activate(context: vscode.ExtensionContext) {
 		if (event.affectsConfiguration('walts.apiKey')) {
 			const config = vscode.workspace.getConfiguration('walts');
 			provider.setAPIKey({ apiKey: config.get('apiKey') });
-			console.log("API key changed");
 		} else if (event.affectsConfiguration('walts.pasteOnClick')) {
 			const config = vscode.workspace.getConfiguration('walts');
 			provider.setSettings({ pasteOnClick: config.get('pasteOnClick') || false });
@@ -82,6 +79,9 @@ export function activate(context: vscode.ExtensionContext) {
 		} else if (event.affectsConfiguration('walts.topP')) {
 			const config = vscode.workspace.getConfiguration('walts');
 			provider.setSettings({ topP: config.get('topP') || 0.5 });
+		} else if (event.affectsConfiguration('walts.backEndAddress')) {
+			const config = vscode.workspace.getConfiguration('walts');
+			provider.setSettings({ backEndAddress: config.get('backEndAddress') || 'http://10.119.6.206:10024/api/search' });
 		} 
 	});
 }
@@ -101,13 +101,15 @@ class waltsViewProvider implements vscode.WebviewViewProvider {
 	private _fullPrompt?: string;
 	private _currentMessageNumber = 0;
 
-    private _backEndAddr: string = '';
-
 	private _settings: Settings = {
 		pasteOnClick: true,
 		maxTokens: 500,
 		temperature: 0.5,
-        enableTranslate: false
+        enableTranslate: false,
+        vendor: "openai",
+        topP: 0.5,
+        backEndAddress: "http://10.119.6.206:10024/api/search",
+        model: "text-davinci-003"
 	};
 	private _apiKey?: string;
 
@@ -122,10 +124,6 @@ class waltsViewProvider implements vscode.WebviewViewProvider {
 		this._apiKey = apiKey.apiKey;
 	}
 
-
-    public setBackEndAddr(addr: string) {
-        this._backEndAddr = addr
-    }
 
 	public setSettings(settings: Settings) {
 		this._settings = {...this._settings, ...settings};
@@ -192,11 +190,6 @@ class waltsViewProvider implements vscode.WebviewViewProvider {
 	public async search(prompt?:string, promptType?:string) {
         const config = vscode.workspace.getConfiguration('walts');
 		this._prompt = prompt;
-		if (!prompt) {
-			return;
-		};
-
-
 		// focus gpt activity from activity bar
 		if (!this._view) {
 			await vscode.commands.executeCommand('walts.chatView.focus');
@@ -221,13 +214,13 @@ class waltsViewProvider implements vscode.WebviewViewProvider {
 		this._currentMessageNumber++;
 
 		try {
-            const res = await axios.post(this._backEndAddr, {
+            const res = await axios.post(this._settings.backEndAddress || 'http://10.119.6.206:10024/api/search', {
                 "prompt": prompt,
                 "model": this._settings.model,
                 "vendor": this._settings.vendor,
                 "APIKey": this._apiKey,
                 "promptType": promptType,
-                "code": selection,
+                "code": selectedText,
                 "maxTokens": this._settings.maxTokens,
                 "temprature": this._settings.temperature,
                 "enableTranslate": this._settings.enableTranslate,
