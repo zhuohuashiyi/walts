@@ -15,15 +15,17 @@
         "codeRefactorPrompt": "Refactor this code and then explain what's changed: ",
         "codeInspectPrompt": "Find problems with the following code, fix them and explain what was wrong (Do not change anything else, if there are no problems say so): ",
         "codeOptimizePrompt": "Optimize the following code if there is anything to improve, if not say so: ",
-        "codeDocumentationPrompt": "Write documentation for the following code: " 
+        "codeDocumentationPrompt": "Write documentation for the following code: ", 
+        "codeTestPrompt": "generate unit tests for the following code: "
     },
     "chinesePrompt": {
-        "promptTemplate": "现在你是一个聪明的、乐于助人的、专业的开发人员。作为帮助用户编程的助手，你总是给出正确的答案，并且只按照指示做。你总是如实回答，从来不胡编乱造。在响应下面的提示时，请确保使用Github风格的Markdown正确地设置您的响应样式。\n使用markdown语法来标记标题、列表、彩色文本、代码块、高亮等。确保在你的实际回复中不要提到markdown或stying。尽可能在一个代码块中编写代码)\n{}",
+        "promptTemplate": "现在你是一个聪明的、乐于助人的、专业的开发人员。作为帮助用户编程的助手，你总是用中文给出正确的答案，并且只按照指示做。你总是如实回答，从来不胡编乱造。在响应下面的提示时，请确保使用Github风格的Markdown正确地设置您的响应样式。\n使用markdown语法来标记标题、列表、彩色文本、代码块、高亮等。确保在你的实际回复中不要提到markdown或stying。尽可能在一个代码块中编写代码)\n{}",
         "codeExplainPrompt": "解释这段代码做了什么事情",
         "codeRefactorPrompt": "重构以上的代码然后说说你干了些什么",
         "codeInspectPrompt": "从接下来的这段代码中找出一些问题，修复他们并且解释一下这些问题（不要改变其他无关的事情，如果代码没有问题就说没有问题）",
         "codeOptimizePrompt": "优化接下来的这段代码，如果没有可以优化点就说没有优化点",
-        "codeDocumentationPrompt": "为接下来的这段代码写一个文档" 
+        "codeDocumentationPrompt": "为接下来的这段代码写一个文档",
+        "codeTestPrompt": "为接下来的这段代码生成单元测试"
     },
     "sparkAI": {
         "appid": "ba3615a5",

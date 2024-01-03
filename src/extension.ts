@@ -49,6 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand('walts.refactor', () => commandHandler('code refactor')),
 		vscode.commands.registerCommand('walts.optimize', () => commandHandler('code optimize')),
 		vscode.commands.registerCommand('walts.findProblems', () => commandHandler('code inspect')),
+        vscode.commands.registerCommand('walts.tests', () => commandHandler('code test')),
 		vscode.commands.registerCommand('walts.documentation', () => commandHandler('code documentation'))
 	);
 

@@ -1,4 +1,6 @@
 import json
+import logging
+
 
 import openai
 import zhipuai
@@ -22,6 +24,17 @@ baiduConfig = config.get('baidu')
 openai.api_key = apiKeyConfig['openai']
 zhipuai.api_key = apiKeyConfig['zhipuai']
 baiduAccessToken = getAccessToken(baiduConfig['accessTokenUrl'], baiduConfig['apiKey'], baiduConfig['secretKey'])
+logger = logging.getLogger('mylogger')
+logger.setLevel(logging.DEBUG)
+
+# 创建FileHandler对象
+fh = logging.FileHandler('walts.log')
+fh.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+
+# 将FileHandler对象添加到Logger对象中
+logger.addHandler(fh)
 
 
 @app.route('/api/search', methods=['POST'])
@@ -38,19 +51,22 @@ def search():
     temperature = request_data.get('temprature', 0.5)
     enable_translate = request_data.get('enableTranslate', False)
     top_p = request_data.get('topP', 0.5)
+    logger.info("vendor: {}, model: {}, max_tokens: {}, temperature: {}, enable_translate: {}, top_p: {}".format(vendor, model, max_tokens, temperature, enable_translate, top_p))
     # 数据有效性检查
-    assert prompt_type in ['plain', 'code explain', 'code refactor', 'code optimize', 'code inspect', 'code documentation']
+    assert prompt_type in ['plain', 'code explain', 'code refactor', 'code optimize', 'code inspect', 'code documentation', 'code test']
+    res = ''
     if vendor == 'openai':
-        return searchOpenAI(model, api_key, prompt_type, prompt, code, max_tokens, temperature, enable_translate, top_p)
+        res = searchOpenAI(model, api_key, prompt_type, prompt, code, max_tokens, temperature, enable_translate, top_p)
     elif vendor == 'zhipuai':
-        return searchZhiPuAI(model, api_key, prompt_type, prompt, code, max_tokens, temperature, top_p)
+        res = searchZhiPuAI(model, api_key, prompt_type, prompt, code, max_tokens, temperature, top_p)
     elif vendor == 'sparkai':
-        return searchSparkAI(prompt_type, prompt, code)
+        res = searchSparkAI(prompt_type, prompt, code)
     elif vendor == 'baidu':
-        return searchBaiduAI(model, prompt_type, prompt, code, temperature, top_p)
+        res = searchBaiduAI(model, prompt_type, prompt, code, temperature, top_p)
     elif vendor == 'google':
-        return searchGoogle(prompt_type, prompt, code)
-    
+        res = searchGoogle(prompt_type, prompt, code)
+    logger.info("answer: {}".format(res))
+    return res
     
 def searchOpenAI(model, api_key, prompt_type, prompt, code, max_tokens, temperature, enable_translate, top_p):
     if api_key:
@@ -95,6 +111,7 @@ def searchSparkAI(prompt_type, prompt, code):
 
 def searchBaiduAI(model, prompt_type, prompt, code, temperature, top_p):
     prompt = buildPrompt(prompt_type, prompt, code, False)    
+    print(prompt)
     payload = json.dumps({
         "messages": [
             {
@@ -138,6 +155,8 @@ def buildPrompt(prompt_type, prompt, code, english):
             prompt = promptConfig['codeInspectPrompt']
         elif prompt_type == 'code documentation':
             prompt = promptConfig['codeDocumentationPrompt']
+        elif prompt_type == 'code documentation':
+            prompt = promptConfig['codeTestPrompt']
         if code:
             prompt = f"{prompt}\n\`\`\`\n{code}\n\`\`\`"
         prompt = promptConfig['promptTemplate'].format(prompt)
@@ -152,6 +171,8 @@ def buildPrompt(prompt_type, prompt, code, english):
             prompt = chinesePromptConfig['codeInspectPrompt']
         elif prompt_type == 'code documentation':
             prompt = chinesePromptConfig['codeDocumentationPrompt']
+        elif prompt_type == 'code test':
+            prompt = promptConfig['codeTestPrompt']
         if code:
             prompt = f"{prompt}\n\`\`\`\n{code}\n\`\`\`"
         prompt = chinesePromptConfig['promptTemplate'].format(prompt)

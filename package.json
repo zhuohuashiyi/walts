@@ -36,27 +36,31 @@
     "commands": [
       {
         "command": "walts.ask",
-        "title": "Ask walts"
+        "title": "walts: ask problems "
       },
       {
         "command": "walts.explain",
-        "title": "walts: Explain selection"
-      },
-      {
-        "command": "walts.refactor",
-        "title": "walts: Refactor selection"
-      },
-      {
-        "command": "walts.findProblems",
-        "title": "walts: Find problems"
+        "title": "walts: code explain"
       },
       {
         "command": "walts.optimize",
-        "title": "walts: Optimize selection"
+        "title": "walts: code optimize"
+      },
+      {
+        "command": "walts.refactor",
+        "title": "walts: code refactor"
+      },
+      {
+        "command": "walts.findProblems",
+        "title": "walts: code inspect"
+      },
+      {
+        "command": "walts.tests",
+        "title": "walts: generate tests"
       },
       {
         "command": "walts.documentation",
-        "title": "walts: Write documentation"
+        "title": "walts: generate documentation"
       },
       {
         "command": "walts.resetSession",
@@ -91,9 +95,14 @@
           "group": "walts-menu-group@5"
         },
         {
+            "command": "walts.tests",
+            "when": "editorHasSelection",
+            "group": "walts-menu-group@6"
+        },
+        {
           "command": "walts.documentation",
           "when": "editorHasSelection",
-          "group": "walts-menu-group@6"
+          "group": "walts-menu-group@7"
         }
       ],
       "commandPalette": [
@@ -119,6 +128,10 @@
         {
           "command": "walts.documentation",
           "when": "editorHasSelection"
+        },
+        {
+            "command": "walts.tests",
+            "when": "editorHasSelection"
         },
         {
           "command": "walts.resetSession"
