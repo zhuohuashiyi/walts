@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="walts%E4%B8%80%E6%AC%BE%E9%AB%98%E5%8F%AF%E7%94%A8%E6%94%AF%E6%8C%81%E5%A4%9A%E7%A7%8D%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%9F%E8%83%BD%E4%B8%B0%E5%AF%8C%E7%9A%84%E5%BC%BA%E5%A4%A7%E7%9A%84ai%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B">Walts：一款高可用、支持多种大模型、功能丰富的强大的AI编程助手</h1>
+<h3 id="overview">Overview</h3>
+<p>Walts(读音同Waltz, 这既是我们四个开发者名字首字母的缩写，也代表着我们祝愿所有使用本插件的开发者能够像华尔兹一样优雅编程)是一款高可用（前后端分离，后端部署在服务器上，提供稳定的服务）、支持多种大模型（openai系列、智谱ai的Chatglm、星火认知大模型等）、功能丰富（提供诸如代码解释、代码优化、代码检查等功能）的强大的AI编程助手。</p>
+<h3 id="%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90">需求分析</h3>
+<h4 id="%E5%8A%9F%E8%83%BD%E6%80%A7%E9%9C%80%E6%B1%82">功能性需求</h4>
+<ul>
+<li>用户可以通过对话框向大模型询问代码问题</li>
+<li>用户可以选择一段代码，然后要求给出代码的解释</li>
+<li>用户可以选择一段代码，然后要求优化这段代码</li>
+<li>用户可以选择一段代码，然后要求检查这段代码中的潜在问题，并提供修改意见</li>
+<li>用户可以选择一段代码，然后要求在不改变代码功能的前提下重构这段代码</li>
+<li>用户可以选择一段代码，然后要求给出描述这段代码的文档</li>
+<li>用户可以选择一段代码，然后要求给出描述这段代码的单元测试</li>
+<li>用户可以自主选择一些参数，如model, temprature, top_p等</li>
+</ul>
+<h4 id="%E9%9D%9E%E5%8A%9F%E8%83%BD%E6%80%A7%E9%9C%80%E6%B1%82">非功能性需求</h4>
+<ul>
+<li>系统应当提供稳定的服务，不能出现因为超时访问服务器而导致的服务不可以现象</li>
+<li>由于使用本插件的未必母语是英语，所以系统应该考虑到这一点提供高质量的服务</li>
+<li>系统的输出应当方便用户，比如说将代码部分显示出来</li>
+</ul>
+<h3 id="ui-design">UI Design</h3>
+<h3 id="%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1">接口设计</h3>
+<p>本插件设计为前后端分离，其中前端用typescript、css、html、javascript等语言构建，主要负责呈现界面，后端用python实现，负责具体功能的实现，部署在服务器上（由于缺乏云服务器，且大模型的apiKey均为个人账号，部署在云上供任意人使用容易出现安全隐患，所以暂时部署在实验室的服务器上，校园网内的用户均可以正常访问，正常使用插件提供的高质量服务）。后端只提供一个接口，如下：
+接口地址：<code>/api/search</code>
+请求方式：<code>POST</code>
+请求参数：</p>
+<ul>
+<li><code>vendor</code>: 服务提供商，如openai,zhipuai,sparkai等</li>
+<li><code>model</code>: 具体模型，各个服务提供商的可选模型是不同的，如openai可选模型有text-davinci-003、text-davinci-002等</li>
+<li><code>APIKey</code>: 对于所有服务提供商，都提供免费的公共apiKey, 但用户也可以传入自己的apiKey,系统保证只使用该key调用相应的大模型接口，不会存储滥用用户传入的APIKey</li>
+<li><code>promptType</code>: 提示的类型，可选有&quot;plain&quot;(表示用户简单的询问)， &quot;code explain&quot;(用户选择一段代码要求对其进行解释，该值不为plain时，prompt应为空)</li>
+<li><code>prompt</code>: 用户输入的提示，仅当<code>promptType</code>为plain时才有效</li>
+<li><code>code</code>: 用户选中的代码片段，仅当<code>promptType</code>不为plain时才有效</li>
+<li><code>maxTokens</code>、<code>temprature</code>、<code>topP</code>为调用大模型接口使用的参数</li>
+<li><code>enableTranslate</code>: boolean类型，仅当调用英文大模型时有效，如果为true,将用户的prompt翻译成英文
+响应参数：response, 即位大模型输出的文本</li>
+</ul>
+<h3 id="%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82">功能实现细节</h3>
+<p>提示模板：&quot;现在你是一个聪明的、乐于助人的、专业的开发人员。作为帮助用户编程的助手，你总是用中文给出正确的答案，并且只按照指示做。你总是如实回答，从来不胡编乱造。在响应下面的提示时，请确保使用Github风格的Markdown正确地设置您的响应样式。\n使用markdown语法来标记标题、列表、彩色文本、代码块、高亮等。确保在你的实际回复中不要提到markdown或stying。尽可能在一个代码块中编写代码)\n{}&quot;
+也就是说：每次给大模型的输入都不是用户的原始问题，而是将用户的原始问题嵌入到了以上的提示模板中。而这提示模板主要有以下几个要点：</p>
+<ul>
+<li>指明应用领域是编程</li>
+<li>强调要如实回答，不能胡编乱造</li>
+<li>要求回答中的代码要以markdown风格的形式呈现，即用<code> </code>包裹。这方便了后续对于代码块的提取
+而如果用户选中了代码块的话，也会以<code>{code}</code>添加在提示的末尾。
+对于代码解释、代码重构、代码优化等功能的实现也是基于预先设定的提示（指令），这些相当于用户提出的问题。如下：</li>
+<li>代码解释： 解释这段代码做了什么事情</li>
+<li>代码重构：重构以上的代码然后说说你干了些什么</li>
+<li>代码优化：优化接下来的这段代码，如果没有可以优化点就说没有优化点</li>
+<li>代码检查：从接下来的这段代码中找出一些问题，修复他们并且解释一下这些问题（不要改变其他无关的事情，如果代码没有问题就说没有问题</li>
+<li>代码文档：为接下来的这段代码写一个文档</li>
+<li>代码测试：为接下来的这段代码编写单元测试</li>
+</ul>
+<p>用户可以设置的参数：</p>
+<ul>
+<li>model: 具体模型</li>
+<li>maxTokens: 每次对话问题加回复的最大词数，注意如果设置较小，回复会被截断，超出最大次数限制的部分会被舍去</li>
+<li>temperature: 在0到1之间，值越大，则表示生成的文本更具有创造力，即一样的问题回复不一样</li>
+<li>top_p: 控制生成文本的概率分布，更小的值带来更加专注和一致的输出</li>
+<li>backEndAddress: 后端地址，我们将其部署在了实验室的服务器上10.119.6.206，凡是校园网内的用户即可访问</li>
+</ul>
+<h3 id="%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C">使用手册</h3>
+<p>在插件市场搜索walts,点击安装。首先用户可以在settings界面，搜索walts来到walts的配置界面，可以对vendor,model等进行配置。在walts插件界面，可以在输入框中输入任何想要查询的代码问题。选中一段代码，右键可以选择诸多代码功能。点击walts给出的回复代码块中，可以将代码复制到光标处。</p>
+<h3 id="%E6%BC%94%E7%A4%BA%E6%A1%88%E4%BE%8B">演示案例</h3>
+<h4 id="%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90">代码生成</h4>
+<p>model: gemini_pro,</p>
+<h4 id="%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96">代码优化</h4>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">Test1</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">long</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; i++) {
+        <span class="hljs-keyword">int</span> j = <span class="hljs-number">10</span>;
+        sum += j * i;
+    }
+    <span class="hljs-keyword">return</span> sum;
+}
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Test1</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[], <span class="hljs-keyword">int</span> length)</span> </span>{
+    <span class="hljs-keyword">int</span> smallestIndex = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; length; i++) {
+        <span class="hljs-keyword">if</span> (arr[i] &lt; arr[smallestIndex]) {
+            smallestIndex = i;
+        }
+    }
+    <span class="hljs-keyword">int</span> temp = arr[smallestIndex];
+    arr[smallestIndex] = arr[<span class="hljs-number">0</span>];
+    arr[<span class="hljs-number">0</span>] = temp;
+}
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">Test1</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> str = <span class="hljs-string">""</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i++) {
+        str += <span class="hljs-keyword">char</span>(i % <span class="hljs-number">26</span> + <span class="hljs-number">65</span>);
+    }
+    <span class="hljs-keyword">return</span> str;
+}
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">pushDominoes</span><span class="hljs-params">(dominoes <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">string</span></span> {
+    n := <span class="hljs-built_in">len</span>(dominoes)
+    right := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)
+    t := n
+    <span class="hljs-keyword">for</span> i := n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- {
+        ch := dominoes[i]
+        right[i] = t
+        <span class="hljs-keyword">if</span> t != n {
+            t++
+        }
+        <span class="hljs-keyword">if</span> ch == <span class="hljs-string">'L'</span> {
+            t = <span class="hljs-number">1</span>
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ch == <span class="hljs-string">'R'</span> {
+            t = n
+        }
+    }
+    t = n
+    <span class="hljs-keyword">var</span> ans <span class="hljs-keyword">string</span> = <span class="hljs-string">""</span>
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ {
+        ch := dominoes[i]
+        <span class="hljs-keyword">if</span> ch == <span class="hljs-string">'.'</span> {
+            <span class="hljs-keyword">if</span> t &lt; right[i] {
+                ch = <span class="hljs-string">'R'</span>
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> t &gt; right[i] {
+                ch = <span class="hljs-string">'L'</span>
+            }
+        } 
+        ans += <span class="hljs-keyword">string</span>(ch)  
+        ch = dominoes[i]
+        <span class="hljs-keyword">if</span> t != n {
+            t++
+        }
+        <span class="hljs-keyword">if</span> ch == <span class="hljs-string">'R'</span> {
+            t = <span class="hljs-number">1</span>
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ch == <span class="hljs-string">'L'</span> {
+            t = n
+        }
+    }
+    <span class="hljs-keyword">return</span> ans
+}
+</div></code></pre>
+<h4 id="%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5">代码检查</h4>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">login</span><span class="hljs-params">(username, password)</span>:</span>
+    conn = pymysql.connect(host=<span class="hljs-string">'localhost'</span>, port=<span class="hljs-number">3306</span>, user=<span class="hljs-string">'root'</span>, password=<span class="hljs-string">'123456'</span>, db=<span class="hljs-string">'users'</span>)
+    cursor = conn.cursor()
+    sql = <span class="hljs-string">"SELECT * FROM user WHERE username='%s' AND password='%s'"</span> % (username, password)
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    <span class="hljs-keyword">return</span> result
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">vul2</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *arg, <span class="hljs-keyword">char</span> *buf)</span> </span>{
+    <span class="hljs-built_in">strcpy</span>(buf, arg);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">vul1</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *argv[])</span> </span>{
+    <span class="hljs-keyword">char</span> buf[<span class="hljs-number">768</span>];
+    vul2(argv[<span class="hljs-number">1</span>], buf);
+}
+</div></code></pre>
+<h4 id="%E4%BB%A3%E7%A0%81%E9%87%8D%E6%9E%84">代码重构</h4>
+<pre class="hljs"><code><div><span class="hljs-meta"># coding=utf-8</span>
+<span class="hljs-function">def <span class="hljs-title">heap_sort</span><span class="hljs-params">(<span class="hljs-built_in">array</span>)</span>:
+    first </span>= len(<span class="hljs-built_in">array</span>) <span class="hljs-comment">// 2 - 1</span>
+    <span class="hljs-function"><span class="hljs-keyword">for</span> start in <span class="hljs-title">range</span><span class="hljs-params">(first, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>)</span>:
+        # 从下到上，从右到左对每个非叶节点进行调整，循环构建成大顶堆
+        <span class="hljs-title">big_heap</span><span class="hljs-params">(<span class="hljs-built_in">array</span>, start, len(<span class="hljs-built_in">array</span>) - <span class="hljs-number">1</span>)</span>
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">end</span> in <span class="hljs-title">range</span><span class="hljs-params">(len(<span class="hljs-built_in">array</span>) - <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">-1</span>)</span>:
+        # 交换堆顶和堆尾的数据
+        <span class="hljs-built_in">array</span>[0], <span class="hljs-built_in">array</span>[<span class="hljs-built_in">end</span>] </span>= <span class="hljs-built_in">array</span>[<span class="hljs-built_in">end</span>], <span class="hljs-built_in">array</span>[<span class="hljs-number">0</span>]
+        # 重新调整完全二叉树，构造成大顶堆
+        big_heap(<span class="hljs-built_in">array</span>, <span class="hljs-number">0</span>, <span class="hljs-built_in">end</span> - <span class="hljs-number">1</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">array</span>
+
+
+def big_heap(<span class="hljs-built_in">array</span>, start, <span class="hljs-built_in">end</span>):
+    root = start
+    # 左孩子的索引
+    child = root * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> child &lt;= <span class="hljs-built_in">end</span>:
+        # 节点有右子节点，并且右子节点的值大于左子节点，则将child变为右子节点的索引
+        <span class="hljs-keyword">if</span> child + <span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">end</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">array</span>[child] &lt; <span class="hljs-built_in">array</span>[child + <span class="hljs-number">1</span>]:
+            child += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">array</span>[root] &lt; <span class="hljs-built_in">array</span>[child]:
+            # 交换节点与子节点中较大者的值
+            <span class="hljs-built_in">array</span>[root], <span class="hljs-built_in">array</span>[child] = <span class="hljs-built_in">array</span>[child], <span class="hljs-built_in">array</span>[root]
+            # 交换值后，如果存在孙节点，则将root设置为子节点，继续与孙节点进行比较
+            root = child
+            child = root * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">break</span>
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    <span class="hljs-built_in">array</span> = [<span class="hljs-number">10</span>, <span class="hljs-number">17</span>, <span class="hljs-number">50</span>, <span class="hljs-number">7</span>, <span class="hljs-number">30</span>, <span class="hljs-number">24</span>, <span class="hljs-number">27</span>, <span class="hljs-number">45</span>, <span class="hljs-number">15</span>, <span class="hljs-number">5</span>, <span class="hljs-number">36</span>, <span class="hljs-number">21</span>]
+    <span class="hljs-built_in">print</span>(heap_sort(<span class="hljs-built_in">array</span>))
+class Solution {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">bool</span> isNumber(<span class="hljs-built_in">string</span> s) {
+        <span class="hljs-keyword">int</span> n = s.<span class="hljs-built_in">size</span>();
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span> (s[<span class="hljs-number">0</span>] == <span class="hljs-string">'e'</span> || s[<span class="hljs-number">0</span>] == <span class="hljs-string">'E'</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">int</span> pos = <span class="hljs-number">-1</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) {
+                <span class="hljs-keyword">if</span> (s[i] == <span class="hljs-string">'e'</span> || s[i] == <span class="hljs-string">'E'</span>) {
+                    pos = i;
+                    <span class="hljs-keyword">break</span>;
+                }
+            }
+        <span class="hljs-keyword">if</span> (pos != <span class="hljs-number">-1</span>) {
+            <span class="hljs-keyword">if</span> (isInt(s.substr(<span class="hljs-number">0</span>, pos)) || isFloat(s.substr(<span class="hljs-number">0</span>, pos))) {
+                <span class="hljs-keyword">if</span> (isInt(s.substr(pos + <span class="hljs-number">1</span>, n - pos))) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">if</span> (isFloat(s) || isInt(s)) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isInt</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>{
+        <span class="hljs-keyword">if</span> (s[<span class="hljs-number">0</span>] == <span class="hljs-string">'+'</span> || s[<span class="hljs-number">0</span>] == <span class="hljs-string">'-'</span>) {
+            <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">size</span>() == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">if</span> (s[<span class="hljs-number">0</span>] == <span class="hljs-string">'.'</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span> (s[<span class="hljs-number">0</span>] &gt;= <span class="hljs-string">'a'</span> &amp;&amp; s[<span class="hljs-number">0</span>] &lt;= <span class="hljs-string">'z'</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span> (s[<span class="hljs-number">0</span>] &gt;= <span class="hljs-string">'A'</span> &amp;&amp; s[<span class="hljs-number">0</span>] &lt;= <span class="hljs-string">'Z'</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; s.<span class="hljs-built_in">size</span>(); i++) {
+            <span class="hljs-keyword">if</span> (s[i] &gt;= <span class="hljs-string">'0'</span> &amp;&amp; s[i] &lt;= <span class="hljs-string">'9'</span>) <span class="hljs-keyword">continue</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">return</span> s.<span class="hljs-built_in">size</span>() != <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isFloat</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>{
+        
+        <span class="hljs-keyword">int</span> num = <span class="hljs-number">0</span>, n1 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (s[<span class="hljs-number">0</span>] &gt;= <span class="hljs-string">'a'</span> &amp;&amp; s[<span class="hljs-number">0</span>] &lt;= <span class="hljs-string">'z'</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span> (s[<span class="hljs-number">0</span>] &gt;= <span class="hljs-string">'A'</span> &amp;&amp; s[<span class="hljs-number">0</span>] &lt;= <span class="hljs-string">'Z'</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span> (s[<span class="hljs-number">0</span>] == <span class="hljs-string">'.'</span>) num++;
+        <span class="hljs-keyword">if</span> (s[<span class="hljs-number">0</span>] &gt;= <span class="hljs-string">'0'</span> &amp;&amp; s[<span class="hljs-number">0</span>] &lt;= <span class="hljs-string">'9'</span>) n1++;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; s.<span class="hljs-built_in">size</span>(); i++) {
+            <span class="hljs-keyword">if</span> (s[i] &gt;= <span class="hljs-string">'0'</span> &amp;&amp; s[i] &lt;= <span class="hljs-string">'9'</span>) {
+                n1++;
+                <span class="hljs-keyword">continue</span>;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s[i] == <span class="hljs-string">'.'</span>) {
+                num++;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            }
+        }
+        <span class="hljs-keyword">return</span> (s.<span class="hljs-built_in">size</span>() != <span class="hljs-number">0</span>) &amp;&amp; num == <span class="hljs-number">1</span> &amp;&amp; n1 != <span class="hljs-number">0</span>;
+    }
+   
+};
+</div></code></pre>
+<h4 id="%E5%85%B6%E4%BB%96">其他</h4>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">quick_sort</span><span class="hljs-params">(array: List[int])</span> -&gt; List[int]:</span>
+    <span class="hljs-keyword">if</span> len(array) &lt; <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> array
+
+    pivot = array[len(array) // <span class="hljs-number">2</span>]
+
+    left = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> array <span class="hljs-keyword">if</span> x &lt; pivot]
+    middle = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> array <span class="hljs-keyword">if</span> x == pivot]
+    right = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> array <span class="hljs-keyword">if</span> x &gt; pivot]
+
+    <span class="hljs-keyword">return</span> quick_sort(left) + middle + quick_sort(right)
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># coding=utf-8</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">heap_sort</span><span class="hljs-params">(array)</span>:</span>
+    first = len(array) // <span class="hljs-number">2</span> - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">for</span> start <span class="hljs-keyword">in</span> range(first, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>):
+        <span class="hljs-comment"># 从下到上，从右到左对每个非叶节点进行调整，循环构建成大顶堆</span>
+        big_heap(array, start, len(array) - <span class="hljs-number">1</span>)
+    <span class="hljs-keyword">for</span> end <span class="hljs-keyword">in</span> range(len(array) - <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">-1</span>):
+        <span class="hljs-comment"># 交换堆顶和堆尾的数据</span>
+        array[<span class="hljs-number">0</span>], array[end] = array[end], array[<span class="hljs-number">0</span>]
+        <span class="hljs-comment"># 重新调整完全二叉树，构造成大顶堆</span>
+        big_heap(array, <span class="hljs-number">0</span>, end - <span class="hljs-number">1</span>)
+    <span class="hljs-keyword">return</span> array
+ 
+ 
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">big_heap</span><span class="hljs-params">(array, start, end)</span>:</span>
+    root = start
+    <span class="hljs-comment"># 左孩子的索引</span>
+    child = root * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> child &lt;= end:
+        <span class="hljs-comment"># 节点有右子节点，并且右子节点的值大于左子节点，则将child变为右子节点的索引</span>
+        <span class="hljs-keyword">if</span> child + <span class="hljs-number">1</span> &lt;= end <span class="hljs-keyword">and</span> array[child] &lt; array[child + <span class="hljs-number">1</span>]:
+            child += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> array[root] &lt; array[child]:
+            <span class="hljs-comment"># 交换节点与子节点中较大者的值</span>
+            array[root], array[child] = array[child], array[root]
+            <span class="hljs-comment"># 交换值后，如果存在孙节点，则将root设置为子节点，继续与孙节点进行比较</span>
+            root = child
+            child = root * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">break</span>
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    array = [<span class="hljs-number">10</span>, <span class="hljs-number">17</span>, <span class="hljs-number">50</span>, <span class="hljs-number">7</span>, <span class="hljs-number">30</span>, <span class="hljs-number">24</span>, <span class="hljs-number">27</span>, <span class="hljs-number">45</span>, <span class="hljs-number">15</span>, <span class="hljs-number">5</span>, <span class="hljs-number">36</span>, <span class="hljs-number">21</span>]
+    print(heap_sort(array))
+
+</div></code></pre>
+<h3 id="%E5%9B%A2%E9%98%9F%E5%88%86%E5%B7%A5">团队分工</h3>
+
+</body>
+</html>

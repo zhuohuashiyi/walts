@@ -4,7 +4,7 @@
         "port": 10024
     },
     "apiKey": {
-        "openai": "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",
+        "openai": "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",
         "zhipuai": "45b57527dbc6bc4164931e6c180c82a3.Mq5HxGkhiGbhFLoB",
         "google": "AIzaSyBdHCekBwLzWixqtRNjsnuBfmwrzfm-mzo"
     },
@@ -23,7 +23,7 @@
         "codeExplainPrompt": "解释这段代码做了什么事情",
         "codeRefactorPrompt": "重构以上的代码然后说说你干了些什么",
         "codeInspectPrompt": "从接下来的这段代码中找出一些问题，修复他们并且解释一下这些问题（不要改变其他无关的事情，如果代码没有问题就说没有问题）",
-        "codeOptimizePrompt": "优化接下来的这段代码，如果没有可以优化点就说没有优化点",
+        "codeOptimizePrompt": "优化接下来的这段代码(eg, 优化运行时间或者使用内存空间)，如果没有可以优化点就说没有优化点",
         "codeDocumentationPrompt": "为接下来的这段代码写一个文档",
         "codeTestPrompt": "为接下来的这段代码生成单元测试"
     },

@@ -182,11 +182,8 @@
         "walts.model": {
           "type": "string",
           "enum": [
-            "ChatGPT",
             "text-davinci-003",
             "text-curie-001",
-            "code-davinci-002",
-            "code-cushman-002",
             "chatglm_turbo",
             "completions_pro",
             "bloomz_7b1",

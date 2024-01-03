@@ -49,7 +49,6 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand('walts.refactor', () => commandHandler('code refactor')),
 		vscode.commands.registerCommand('walts.optimize', () => commandHandler('code optimize')),
 		vscode.commands.registerCommand('walts.findProblems', () => commandHandler('code inspect')),
-        vscode.commands.registerCommand('walts.tests', () => commandHandler('code test')),
 		vscode.commands.registerCommand('walts.documentation', () => commandHandler('code documentation'))
 	);
 
@@ -285,6 +284,7 @@ class waltsViewProvider implements vscode.WebviewViewProvider {
 				<script src="${showdownUri}"></script>
 				<script src="${microlightUri}"></script>
 				<style>
+				
 				.code {
 					white-space: pre;
 				}
@@ -300,16 +300,69 @@ class waltsViewProvider implements vscode.WebviewViewProvider {
 				h1, h2, h3, h4, h5, h6 {
 					font-weight: bold !important;
 				}
+				.input-box{
+					// position:relative;
+					height:10px !important;
+					// margin-bottom:300px !important;
+				}
 				.input-style{
 					border-radius:1000px !important;
 					color:#fff !important;
+					// position:fixed !important;
+					// width:95% !important;
+					
 				}
 				.hightlight{
-					// color:#2870EA;
+					color:#2870EA;
+				}
+				.hightlight1{
+					// color:#ff0000;
 				}
 				input:focus {
 					outline: 2px solid #2870EA !important; 
-			  }
+			  	}
+				.chatBox{
+					margin-bottom: 20px;
+				}
+			  	.user {
+					display: flex;
+					margin-bottom: 30px;
+				}
+
+				.user_img {
+					width: 30px;
+					height: 30px;
+					background: linear-gradient(-135deg, #0000cc, #009dff);
+					border: 1px solid lightblue;
+					border-radius: 50%;
+					margin-right: 10px;
+				}
+
+				.walts {
+					display: flex;
+				}
+
+				.img-box {
+					height: 30px;
+					width: 30px;
+					border-radius: 50%;
+					margin-right: 10px;
+					display: inline-block;
+  					vertical-align: middle;
+				}
+
+				.img-box img {
+					width: 100%;
+					height: 100%;
+				}
+
+				.flex-al {
+					flex: 1;
+				}
+			  
+
+
+
 				</style>
 			</head>
 			<body>

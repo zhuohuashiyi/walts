@@ -71,4 +71,267 @@ Walts(读音同Waltz, 这既是我们四个开发者名字首字母的缩写，�
 
 在插件市场搜索walts,点击安装。首先用户可以在settings界面，搜索walts来到walts的配置界面，可以对vendor,model等进行配置。在walts插件界面，可以在输入框中输入任何想要查询的代码问题。选中一段代码，右键可以选择诸多代码功能。点击walts给出的回复代码块中，可以将代码复制到光标处。
 
+
+### 演示案例
+
+#### 代码生成
+model: gemini_pro, 
+
+#### 代码优化
+```c++
+long Test1() {
+    long sum = 0;
+    for (int i = 0; i < 1000000; i++) {
+        int j = 10;
+        sum += j * i;
+    }
+    return sum;
+}
+```
+void Test1(int arr[], int length) {
+    int smallestIndex = 0;
+    for (int i = 1; i < length; i++) {
+        if (arr[i] < arr[smallestIndex]) {
+            smallestIndex = i;
+        }
+    }
+    int temp = arr[smallestIndex];long Test1() {
+        long sum = 0;
+        for (int i = 0; i < 1000000; i++) {
+            int j = 10;
+            sum += j * i;
+        }
+        return sum;
+    }
+    arr[smallestIndex] = arr[0];
+    arr[0] = temp;
+}
+```c++
+
+```
+```C++
+string Test1() {
+    std::string str = "";
+    for (int i = 0; i < 10000; i++) {
+        str += char(i % 26 + 65);
+    }
+    return str;
+}
+```
+```golang
+func pushDominoes(dominoes string) string {
+    n := len(dominoes)
+    right := make([]int, n)
+    t := n
+    for i := n - 1; i >= 0; i-- {
+        ch := dominoes[i]
+        right[i] = t
+        if t != n {
+            t++
+        }
+        if ch == 'L' {
+            t = 1
+        } else if ch == 'R' {
+            t = n
+        }
+    }
+    t = n
+    var ans string = ""
+    for i := 0; i < n; i++ {
+        ch := dominoes[i]
+        if ch == '.' {
+            if t < right[i] {
+                ch = 'R'
+            } else if t > right[i] {
+                ch = 'L'
+            }
+        } 
+        ans += string(ch)  
+        ch = dominoes[i]
+        if t != n {
+            t++
+        }
+        if ch == 'R' {
+            t = 1
+        } else if ch == 'L' {
+            t = n
+        }
+    }
+    return ans
+}
+```
+
+#### 代码检查
+```python
+def login(username, password):
+    conn = pymysql.connect(host='localhost', port=3306, user='root', password='123456', db='users')
+    cursor = conn.cursor()
+    sql = "SELECT * FROM user WHERE username='%s' AND password='%s'" % (username, password)
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    return result
+```
+
+```c++
+int vul2(char *arg, char *buf) {
+    strcpy(buf, arg);
+    return 0;
+}
+
+int vul1(char *argv[]) {
+    char buf[768];
+    vul2(argv[1], buf);
+}
+```
+
+
+#### 代码重构
+```c++
+# coding=utf-8
+def heap_sort(array):
+    first = len(array) // 2 - 1
+    for start in range(first, -1, -1):
+        # 从下到上，从右到左对每个非叶节点进行调整，循环构建成大顶堆
+        big_heap(array, start, len(array) - 1)
+    for end in range(len(array) - 1, 0, -1):
+        # 交换堆顶和堆尾的数据
+        array[0], array[end] = array[end], array[0]
+        # 重新调整完全二叉树，构造成大顶堆
+        big_heap(array, 0, end - 1)
+    return array
+
+
+def big_heap(array, start, end):
+    root = start
+    # 左孩子的索引
+    child = root * 2 + 1
+    while child <= end:
+        # 节点有右子节点，并且右子节点的值大于左子节点，则将child变为右子节点的索引
+        if child + 1 <= end and array[child] < array[child + 1]:
+            child += 1
+        if array[root] < array[child]:
+            # 交换节点与子节点中较大者的值
+            array[root], array[child] = array[child], array[root]
+            # 交换值后，如果存在孙节点，则将root设置为子节点，继续与孙节点进行比较
+            root = child
+            child = root * 2 + 1
+        else:
+            break
+
+if __name__ == '__main__':
+    array = [10, 17, 50, 7, 30, 24, 27, 45, 15, 5, 36, 21]
+    print(heap_sort(array))
+class Solution {
+public:
+    bool isNumber(string s) {
+        int n = s.size();
+        if (n == 0) return false;
+        if (s[0] == 'e' || s[0] == 'E') return false;
+        int pos = -1;
+            for (int i = 1; i < n; i++) {
+                if (s[i] == 'e' || s[i] == 'E') {
+                    pos = i;
+                    break;
+                }
+            }
+        if (pos != -1) {
+            if (isInt(s.substr(0, pos)) || isFloat(s.substr(0, pos))) {
+                if (isInt(s.substr(pos + 1, n - pos))) return true;
+            }
+            return false;
+        }
+        if (isFloat(s) || isInt(s)) return true;
+        return false;
+    }
+    bool isInt(string s) {
+        if (s[0] == '+' || s[0] == '-') {
+            if (s.size() == 1) return false;
+        }
+        if (s[0] == '.') return false;
+        if (s[0] >= 'a' && s[0] <= 'z') return false;
+        if (s[0] >= 'A' && s[0] <= 'Z') return false;
+        for (int i = 1; i < s.size(); i++) {
+            if (s[i] >= '0' && s[i] <= '9') continue;
+            return false;
+        }
+        return s.size() != 0;
+    }
+    bool isFloat(string s) {
+        
+        int num = 0, n1 = 0;
+        if (s[0] >= 'a' && s[0] <= 'z') return false;
+        if (s[0] >= 'A' && s[0] <= 'Z') return false;
+        if (s[0] == '.') num++;
+        if (s[0] >= '0' && s[0] <= '9') n1++;
+        for (int i = 1; i < s.size(); i++) {
+            if (s[i] >= '0' && s[i] <= '9') {
+                n1++;
+                continue;
+            } else if (s[i] == '.') {
+                num++;
+            } else {
+                return false;
+            }
+        }
+        return (s.size() != 0) && num == 1 && n1 != 0;
+    }
+   
+};
+```
+
+#### 其他
+```python
+def quick_sort(array: List[int]) -> List[int]:
+    if len(array) < 2:
+        return array
+
+    pivot = array[len(array) // 2]
+
+    left = [x for x in array if x < pivot]
+    middle = [x for x in array if x == pivot]
+    right = [x for x in array if x > pivot]
+
+    return quick_sort(left) + middle + quick_sort(right)
+```
+
+```python
+# coding=utf-8
+def heap_sort(array):
+    first = len(array) // 2 - 1
+    for start in range(first, -1, -1):
+        # 从下到上，从右到左对每个非叶节点进行调整，循环构建成大顶堆
+        big_heap(array, start, len(array) - 1)
+    for end in range(len(array) - 1, 0, -1):
+        # 交换堆顶和堆尾的数据
+        array[0], array[end] = array[end], array[0]
+        # 重新调整完全二叉树，构造成大顶堆
+        big_heap(array, 0, end - 1)
+    return array
+ 
+ 
+def big_heap(array, start, end):
+    root = start
+    # 左孩子的索引
+    child = root * 2 + 1
+    while child <= end:
+        # 节点有右子节点，并且右子节点的值大于左子节点，则将child变为右子节点的索引
+        if child + 1 <= end and array[child] < array[child + 1]:
+            child += 1
+        if array[root] < array[child]:
+            # 交换节点与子节点中较大者的值
+            array[root], array[child] = array[child], array[root]
+            # 交换值后，如果存在孙节点，则将root设置为子节点，继续与孙节点进行比较
+            root = child
+            child = root * 2 + 1
+        else:
+            break
+
+if __name__ == '__main__':
+    array = [10, 17, 50, 7, 30, 24, 27, 45, 15, 5, 36, 21]
+    print(heap_sort(array))
+
+```
+
 ### 团队分工

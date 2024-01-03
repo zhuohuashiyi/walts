@@ -64,7 +64,7 @@ def search():
     elif vendor == 'baidu':
         res = searchBaiduAI(model, prompt_type, prompt, code, temperature, top_p)
     elif vendor == 'google':
-        res = searchGoogle(prompt_type, prompt, code)
+        res = searchGoogle(prompt_type, prompt, code, enable_translate)
     logger.info("answer: {}".format(res))
     return res
     
@@ -131,7 +131,9 @@ def searchBaiduAI(model, prompt_type, prompt, code, temperature, top_p):
 
 
 
-def searchGoogle(prompt_type, prompt, code):
+def searchGoogle(prompt_type, prompt, code, enable_translate):
+    if enable_translate and prompt_type == 'plain':
+        prompt = translate(prompt, youdaoConfig)
     prompt = buildPrompt(prompt_type, prompt, code, True)
     data = {"contents": [{"parts": [{"text": prompt }]}]}
     headers = {
