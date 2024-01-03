@@ -4,6 +4,7 @@
   "description": "Walts(pronounced Waltz, which is an acronym for our four developers and means we wish all developers who use this plugin programming with the grace of a waltz) is a highly available (front-end/back-end separation, back-end deployment on the server, Provides a stable service), supports a variety of large models (openai family, zhipuai's Chatglm, Spark cognitive large model, etc.), and provides a powerful AI programming assistant with rich features (such as code interpretation, code optimization, code inspection, etc.).",
   "version": "0.0.1",
   "icon": "resources/extensionIcon.png",
+  "publisher": "zhuohuashiyi",
   "license": "MIT",
   "engines": {
     "vscode": "^1.73.0"

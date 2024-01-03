@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import axios from 'axios'
+import axios from 'axios';
 
 
 type KeyInfo = {apiKey?: string};
@@ -206,8 +206,7 @@ class waltsViewProvider implements vscode.WebviewViewProvider {
 
 		// 确保提示已显示
 		this._view?.webview.postMessage({ type: 'setPrompt', value: this._prompt });
-		this._view?.webview.postMessage({ type: 'addResponse', value: '...' });
-
+		this._view?.webview.postMessage({ type: 'addPrompt', value: '查询中...' });
 
         // 请求后端获取回复
         
@@ -226,8 +225,8 @@ class waltsViewProvider implements vscode.WebviewViewProvider {
                 "temprature": this._settings.temperature,
                 "enableTranslate": this._settings.enableTranslate,
                 "topP": this._settings.topP
-            })
-            response = res.data
+            });	
+            response = res.data;
 			// close unclosed codeblocks
 			// Use a regular expression to find all occurrences of the substring in the string
 			const REGEX_CODEBLOCK = new RegExp('\`\`\`', 'g');
@@ -256,11 +255,18 @@ class waltsViewProvider implements vscode.WebviewViewProvider {
 
 		// Saves the response
 		this._response = response;
-        console.log(response)
+        console.log(response);
 		// Show the view and send a message to the webview with the response
 		if (this._view) {
 			this._view.show?.(true);
-			this._view.webview.postMessage({ type: 'addResponse', value: response });
+			// this._view.webview.postMessage({ type: 'addResponse', value: response });
+			if(promptType==="plain"){
+				this._view.webview.postMessage({ type: 'addResponse', value: response });
+			}else{
+				let str="";
+				str=promptType+"\n"+"\`\`\`"+"\n"+selectedText+"\n"+"\`\`\`";
+				this._view.webview.postMessage({ type: 'askResponse', instruct: str,value: response });
+			}
 		}
 	}
 
@@ -294,10 +300,22 @@ class waltsViewProvider implements vscode.WebviewViewProvider {
 				h1, h2, h3, h4, h5, h6 {
 					font-weight: bold !important;
 				}
+				.input-style{
+					border-radius:1000px !important;
+					color:#fff !important;
+				}
+				.hightlight{
+					// color:#2870EA;
+				}
+				input:focus {
+					outline: 2px solid #2870EA !important; 
+			  }
 				</style>
 			</head>
 			<body>
-				<input class="h-10 w-full text-white bg-stone-700 p-4 text-sm" placeholder="Ask GPT3 something" id="prompt-input" />
+				<input class="input-style h-10 w-full text-white bg-stone-700 p-4 text-sm" placeholder="请输入要查询的信息!" id="prompt-input" />
+				<div id="prompt" class="pt-4 text-sm">
+				</div>
 				<div id="response" class="pt-4 text-sm">
 				</div>
 				<script src="${scriptUri}"></script>

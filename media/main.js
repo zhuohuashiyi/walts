@@ -4,15 +4,67 @@
 // It cannot access the main VS Code APIs directly.
 (function () {
   const vscode = acquireVsCodeApi();
+  storageFlag=true;
+  if (typeof(Storage) !== "undefined") {
+    storageFlag=true;
+  } else {
+    storageFlag=false;
+  }
+
 
   let response = '';
-
+  let historyResponse = '';
+  let inputValue="";
+  let localMessage=[];
+  let tempArray=[];
+  // localStorage.clear();
+  try {
+    if(storageFlag){
+      localMessage=JSON.parse(localStorage.getItem('localMessage'))||[];
+      if(localMessage.length>0){
+        let str='';
+        localMessage.forEach((value,key) => {
+          if(value){
+            value.forEach((item,itemkey) => {
+              if(item.type === 1){
+                str+="问题: "+item.message+'\n';
+              }else if(item.type === 2){
+                str+="回答: \n"+item.message+'\n';
+              }
+    
+            });
+          }
+        });
+        historyResponse=str;
+        response = str;
+        setResponse();
+      }
+    }
+    
+  } catch (error) {
+    
+  }
+  
+ 
   // Handle messages sent from the extension to the webview
   window.addEventListener("message", (event) => {
     const message = event.data;
+
     switch (message.type) {
       case "addResponse": {
-        response = message.value;
+        let tempMessage={
+          type:2,
+          message:message.value
+        };
+        tempArray.push(tempMessage);
+        localMessage.unshift(tempArray);
+        localStorage.setItem('localMessage', JSON.stringify(localMessage));
+        
+        document.getElementById("prompt").innerHTML = "查询成功！";
+        let str="问题: "+inputValue+'\n';
+        response = fixCodeBlocks(message.value);
+        historyResponse =str+ "回答：\n"+response+"\n"+historyResponse;
+        response=historyResponse;
         setResponse();
         break;
       }
@@ -22,6 +74,33 @@
       }
       case "setPrompt": {
         document.getElementById("prompt-input").value = message.value;
+        break;
+      }
+      case "addPrompt":{
+        document.getElementById("prompt").innerHTML = message.value;
+        break;
+      }
+      case "askResponse":{
+        tempArray=[];
+        let tempMessage1={
+          type:1,
+          message:message.instruct
+        };
+        tempArray.push(tempMessage1);
+        let tempMessage2={
+          type:2,
+          message:message.value
+        };
+        tempArray.push(tempMessage2);
+        localMessage.unshift(tempArray);
+        localStorage.setItem('localMessage', JSON.stringify(localMessage));
+        
+        document.getElementById("prompt").innerHTML = "查询成功！";
+        let str="问题: "+message.instruct+'\n';
+        response = fixCodeBlocks(message.value);
+        historyResponse =str+ "回答：\n"+response+"\n"+historyResponse;
+        response=historyResponse;
+        setResponse();
         break;
       }
     }
@@ -60,7 +139,8 @@
               "p-2",
               "my-2",
               "block",
-              "overflow-x-scroll"
+              "overflow-x-scroll",
+              "hightlight"
             );
         }
         
@@ -97,6 +177,18 @@
   document.getElementById('prompt-input').addEventListener('keyup', function (e) {
     // If the key that was pressed was the Enter key
     if (e.keyCode === 13) {
+      if(!this.value.trim()){
+        document.getElementById("prompt").innerHTML = "请输入要查询的内容！";
+        return;
+      }
+      inputValue=this.value;
+      tempArray=[];
+      let tempMessage={
+        type:1,
+        message:this.value
+      };
+      tempArray.push(tempMessage);
+      
       vscode.postMessage({
         type: 'prompt',
         value: this.value
