@@ -4,9 +4,9 @@
         "port": 10024
     },
     "apiKey": {
-        "openai": "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",
-        "zhipuai": "45b57527dbc6bc4164931e6c180c82a3.Mq5HxGkhiGbhFLoB",
-        "google": "AIzaSyBdHCekBwLzWixqtRNjsnuBfmwrzfm-mzo"
+        "openai": "sk-demo",
+        "zhipuai": "",
+        "google": ""
     },
     "googleUrl": "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={}",
     "prompt": {
@@ -28,21 +28,21 @@
         "codeTestPrompt": "为接下来的这段代码生成单元测试"
     },
     "sparkAI": {
-        "appid": "ba3615a5",
-        "app_secret": "YmJiMzcwNmYzZGJlNjVjOGRlMmE1Zjc0",
-        "api_key": "b4bb2a9793abd4da94a2c79f3fc41fa7",
+        "appid": "",
+        "app_secret": "",
+        "api_key": "",
         "domain": "generalv3",
         "url": "ws://spark-api.xf-yun.com/v3.1/chat"
     },
     "youdao": {
-        "appid": "2c35f8f88f85ee4c",
-        "app_secret": "0FniYwQvIcgB7Zihe7SOwYxKHLkAPUIY",
+        "appid": "",
+        "app_secret": "",
         "url": "https://openapi.youdao.com/api"
     },
     "baidu": {
         "accessTokenUrl": "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}",
-        "apiKey": "GN7ND3YxBA6a3u0kqYCzlr3s",
-        "secretKey": "xSbvPjHY5Aa7kUPNDyBtjYLcdyHlojoZ",
+        "apiKey": "",
+        "secretKey": "",
         "url": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/{}?access_token={}"
     }
 }
